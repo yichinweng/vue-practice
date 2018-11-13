@@ -1,2 +1,2 @@
 # vue-practice
-practice of vue.
+菜菜的前端 Vue 小練習。
