@@ -1,0 +1,43 @@
+body {
+  text-align: center;
+}
+.todo-input {
+  width: 300px;
+  font-size: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+h1 {
+  color: #e969009c;
+  font-size: 60px;
+}
+.todo-item-area {
+  width: 300px;
+  margin: 0 auto;
+  box-shadow: 3px 3px 5px #eee;
+  & li {
+    list-style: none;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    line-height: 2em;
+    padding: 10px;
+    box-sizing: border-box;
+    &.done {
+      text-decoration: line-through;
+    }
+    & input,
+    & label {
+      cursor: pointer;
+    }
+  }
+}
+.filter-area {
+  margin-top: 10px;
+  button {
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .button-active {
+    border-color: #e969009c;
+  }
+}
