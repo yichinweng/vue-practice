@@ -25,6 +25,11 @@ export default new Router({
       path: '/headlines',
       name: 'headlines',
       component: () => import('./views/Headlines.vue')
+    },
+    {
+      path: '/headlines/:id',
+      name: 'headlinecontent',
+      component: () => import('./views/HeadlineContent.vue')
     }
   ]
 })

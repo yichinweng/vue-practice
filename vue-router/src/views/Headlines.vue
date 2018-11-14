@@ -4,32 +4,38 @@
     <p>{{ msg }}</p>
     <div class="headlines">
       <li
-        v-for="item in headlines.articles"
-        v-bind:key="item.id"
+        v-for="(item, index) in headlines.articles"
+        v-bind:key="index"
+        v-on:click="moveToContent(index)"
       >
-        {{ item.title }}
+          {{ item.title }}
       </li>
     </div>
   </div>
 </template>
 
 <script>
+import store from '../store.js';
 export default {
   name: 'headlines',
   data: function() {
     return {
       msg: 'Hacker News',
-      headlines: {},
+      headlines: store.state.headlines,
+    }
+  },
+  watch: {
+    headlines: (v) => {console.log(v)}
+  },
+  methods: {
+    moveToContent: function(id) {
+      this.$router.push('/headlines/' + id);
     }
   },
   mounted() {
-    fetch('https://newsapi.org/v2/top-headlines?sources=hacker-news&apiKey=9180b03cfcdf4018ab8b60731b6c958a')
-      .then(function(res) {
-        return res.json();
-      })
-      .then((resJson) => {
-        this.headlines = resJson;
-      })
+    if (this.headlines.status !== 'ok') {
+      store.getHeadlines();
+    }
   }
 }
 </script>
@@ -47,5 +53,11 @@ export default {
   width: 50%;
   text-align: left;
   margin:  0 auto;
+}
+.headlines li {
+  cursor: pointer;
+}
+.headlines li:hover {
+  font-size: 1.2em;
 }
 </style>
