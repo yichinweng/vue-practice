@@ -3,29 +3,37 @@
     <img alt="Vue logo" src="../assets/logo.png">
     <p>{{ msg }}</p>
     <div class="headlines">
-      <li
+      <HeadlineTitle
         v-for="(item, index) in headlines.articles"
+        v-bind:article="item"
         v-bind:key="index"
-        v-on:click="moveToContent(index)"
-      >
-          {{ item.title }}
-      </li>
+        v-on:click.native="moveToContent(index)"></HeadlineTitle>
     </div>
   </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import store from '../store.js';
+
+const HeadlineTitle = {
+  props: ['article'],
+  template: `
+    <li>
+        {{ article.title }}
+    </li>`
+};
+
 export default {
   name: 'headlines',
+  components: {
+    HeadlineTitle,
+  },
   data: function() {
     return {
       msg: 'Hacker News',
       headlines: store.state.headlines,
     }
-  },
-  watch: {
-    headlines: (v) => {console.log(v)}
   },
   methods: {
     moveToContent: function(id) {
