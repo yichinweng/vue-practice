@@ -2,7 +2,7 @@
   <div id="headlines">
     <img alt="Vue logo" src="../assets/logo.png">
     <h1>{{ msg }}</h1>
-    <p v-if="fetching">fetching</p>
+    <p v-if="fetching">fetching...</p>
     <div class="headlines">
       <HeadlineTitle
         v-for="(item, index) in headlines.articles"
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import { mapActions } from 'vuex';
 
 const HeadlineTitle = {
