@@ -1,7 +1,8 @@
 <template>
   <div id="headlines">
     <img alt="Vue logo" src="../assets/logo.png">
-    <p>{{ msg }}</p>
+    <h1>{{ msg }}</h1>
+    <p v-if="fetching">fetching</p>
     <div class="headlines">
       <HeadlineTitle
         v-for="(item, index) in headlines.articles"
@@ -14,7 +15,7 @@
 
 <script>
 import Vue from 'vue';
-import store from '../store.js';
+import { mapActions } from 'vuex';
 
 const HeadlineTitle = {
   props: ['article'],
@@ -32,19 +33,30 @@ export default {
   data: function() {
     return {
       msg: 'Hacker News',
-      headlines: store.state.headlines,
+    }
+  },
+  computed: {
+    fetching() {
+      return this.$store.state.fetching
+    },
+    headlines() {
+      return this.$store.state.headlines
     }
   },
   methods: {
     moveToContent: function(id) {
       this.$router.push('/headlines/' + id);
-    }
+    },
+    ...mapActions([
+      'getHeadlines',
+    ])
   },
   mounted() {
-    if (this.headlines.status !== 'ok') {
-      store.getHeadlines();
+    if (this.$store.state.headlines.status === 'ok') {
+      return;
     }
-  }
+    this.getHeadlines();
+  },
 }
 </script>
 

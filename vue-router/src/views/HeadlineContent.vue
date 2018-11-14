@@ -4,17 +4,17 @@
     <div class="content">
       {{ article.content }}
     </div>
-    <a v-bind:href="article.url">More...</a>
+    <div v-if="article.urlToImage"><img v-bind:src="article.urlToImage"></div>
+    <a v-bind:href="article.url" target="_blank">More...</a>
   </div>
 </template>
 
 <script>
-import store from '../store.js';
 export default {
   name: 'headlinecontent',
-  data: function() {
-    return {
-      article: store.state.headlines.articles[this.$route.params.id]
+  computed: {
+    article() {
+      return this.$store.state.headlines.articles[this.$route.params.id]
     }
   }
 }

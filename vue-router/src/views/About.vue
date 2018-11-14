@@ -5,11 +5,10 @@
 </template>
 
 <script>
-import store from '../store.js'
 export default {
-  data: function() {
-    return {
-      msg: store.state.msg
+  computed: {
+    msg() {
+      return this.$store.state.msg
     }
   }
 }

@@ -32,17 +32,16 @@
 </template>
 
 <script>
-import store from '../store.js'
 export default {
   name: 'HelloWorld',
   data: function() {
     return {
-      aboutMsg: store.state.msg,
+      aboutMsg: this.$store.state.msg,
     }
   },
   methods: {
     handleChange: function() {
-      store.setMsg(this.aboutMsg);
+      this.$store.commit('setMsg', this.aboutMsg);
     }
   },
   props: {
