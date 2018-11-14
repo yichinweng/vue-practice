@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <input v-model="aboutMsg" v-on:change="handleChange">
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -31,8 +32,19 @@
 </template>
 
 <script>
+import store from '../store.js'
 export default {
   name: 'HelloWorld',
+  data: function() {
+    return {
+      aboutMsg: store.state.msg,
+    }
+  },
+  methods: {
+    handleChange: function() {
+      store.setMsg(this.aboutMsg);
+    }
+  },
   props: {
     msg: String
   }
@@ -54,5 +66,8 @@ li {
 }
 a {
   color: #42b983;
+}
+input {
+  width: 300px;
 }
 </style>
