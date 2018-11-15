@@ -10,6 +10,10 @@
       </template>
       Hi, I'm Winter. {{ msg }}
     </SlotTest>
+    <base-input ref="usernameInput"></base-input>
+    <div>
+      <button v-on:click="focusInput()">Focus input box</button>
+    </div>
   </div>
 </template>
 
@@ -28,13 +32,32 @@ const SlotTest = {
   `
 };
 
+const baseInput = {
+  template: `
+    <p>
+      <input ref="input">
+    </p>
+  `,
+  methods: {
+    focus: function() {
+      this.$refs.input.focus()
+    }
+  }
+}
+
 export default {
   components: {
     SlotTest,
+    baseInput
   },
   computed: {
     msg() {
       return this.$store.state.msg
+    }
+  },
+  methods: {
+    focusInput: function() {
+      this.$refs.usernameInput.focus()
     }
   }
 }
