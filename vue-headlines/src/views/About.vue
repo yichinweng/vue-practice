@@ -10,10 +10,17 @@
       </template>
       Hi, I'm Winter. {{ msg }}
     </SlotTest>
-    <base-input ref="usernameInput"></base-input>
-    <div>
-      <button v-on:click="focusInput()">Focus input box</button>
-    </div>
+    <transition name="fade"
+      enter-active-class="fade-enter-active"
+      leave-active-class="fade-leave-active">
+      <div v-if="show">
+        <base-input ref="usernameInput"></base-input>
+        <div v-if="show">
+          <button v-on:click="focusInput()">Focus input box</button>
+        </div>
+      </div>
+    </transition>
+    <button v-on:click="show = !show">Toggle Show</button>
   </div>
 </template>
 
@@ -46,6 +53,11 @@ const baseInput = {
 }
 
 export default {
+  data: function() {
+    return {
+      show: true,
+    }
+  },
   components: {
     SlotTest,
     baseInput
@@ -62,3 +74,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
